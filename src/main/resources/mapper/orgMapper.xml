@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ahzl.dao.OrgDao">
+
+    <!--插入户室-->
+    <insert id="insertOrg"  parameterType="com.ahzl.model.Org">
+        <![CDATA[
+
+		insert into DL_ORGS values (#{id},#{orgId},#{gridCode},#{name},#{certificateType},#{socialCreditCode},#{regAddress},#{legalPersonName},#{legalPersonCardType},#{legalPersonCardCode},#{phone},#{establishDate},#{brand},#{image},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{establishPartyOrg},#{industryCategory},#{active_address})
+
+        ]]>
+    </insert>
+
+    <select id="selectAllOrgId"  resultType="String">
+        <![CDATA[
+                select id from DL_ORGS
+
+        ]]>
+    </select>
+</mapper>

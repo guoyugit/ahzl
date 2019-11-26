@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ahzl.dao.DoorDao">
+
+<!--插入户室-->
+    <insert id="insertDoor"  parameterType="com.ahzl.model.Door">
+        <![CDATA[
+
+		insert into DL_DOORS values (#{id},#{doorId},#{gridCode},#{buildingId},#{no},#{noSuffix},#{usage},#{area},#{usageForm},#{roomCount},#{ownerName},#{ownerPhone},#{ownerCardtype},#{onerCardCode},#{propertyNote},#{address},#{status},#{orgId},#{peopleCount},#{partyMemberCount},#{unitNo},#{unitSuffix},#{unitIndex},#{floorNo},#{floorSuffix},#{floorIndex})
+
+        ]]>
+    </insert>
+    <!--查询所有doorId-->
+    <select id="selectAllDoorId" resultType="String">
+        <![CDATA[
+
+		 select doorId from DL_DOORS
+        ]]>
+    </select>
+
+    <!--查询所有doorId-->
+    <select id="selectAllNeedDoorId" resultType="String">
+        <![CDATA[
+            select id from dl_doors ddd where ddd.id not in (
+            select distinct dp.doorId from dl_people dp ) limit 1000
+        ]]>
+    </select>
+
+    <select id="selectNeedUpdateBuildId"  resultType="String">
+        <![CDATA[
+           select db.id from dl_buildings db left join dl_doors dd  on db.id = dd.buildingId
+              where dd.buildingId is null
+        ]]>
+    </select>
+
+
+    <update id="updateDoor"  parameterType="com.ahzl.model.Door">
+        <![CDATA[
+          update dl_doors
+                set doorId = #{doorId},
+                gridCode = #{gridCode},
+                no = #{no},
+                noSuffix = #{noSuffix},
+                usage = #{usage},
+                area = #{area},
+                usageForm = #{usageForm},
+                roomCount = #{roomCount},
+                ownerName = #{ownerName},
+                ownerPhone = #{ownerPhone},
+                ownerCardtype = #{ownerCardtype},
+                onerCardCode = #{onerCardCode},
+                propertyNote = #{propertyNote},
+                address = #{address},
+                status = #{status},
+                orgId = #{orgId},
+                peopleCount = #{peopleCount},
+                partyMemberCount = #{partyMemberCount},
+                unitNo = #{unitNo},
+                unitSuffix = #{unitSuffix},
+                unitIndex = #{unitIndex},
+                floorNo = #{floorNo},
+                floorSuffix = #{floorSuffix},
+                floorIndex = #{floorIndex},
+            where buildingId = #{buildingId}
+        ]]>
+    </update>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ahzl.dao.QueryParamDao">
+
+    <!--插入查询指令-->
+    <insert id="insertQueryParam"  parameterType="com.ahzl.model.QueryInstruction">
+        <![CDATA[
+		insert into QUERY_INSTRUCTION values (#{id},#{dataType},#{instruction},#{instructionType},#{sendStatus},#{startTime},#{endTime},#{delFlag},#{createTime},#{updateTime});
+        ]]>
+    </insert>
+
+    <select id="queryInstructionsByPage" parameterType="map" resultMap="BaseResultMap">
+        select *  from QUERY_INSTRUCTION limit #{currIndex} , #{pageSize}
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.ahzl.model.QueryInstruction">
+        <!-- 用id属性来映射主键字段 -->
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <!-- 用result属性来映射非主键字段 -->
+        <result column="data_type" jdbcType="INTEGER" property="dataType" />
+        <result column="instruction" jdbcType="VARCHAR" property="instruction" />
+        <result column="instruction_type" jdbcType="INTEGER" property="instructionType" />
+        <result column="send_status" jdbcType="INTEGER" property="sendStatus" />
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+        <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+</mapper>

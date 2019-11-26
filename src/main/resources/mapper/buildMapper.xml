@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ahzl.dao.BuildDao">
+    <!-- 查询所有用户 -->
+    <insert id="insertBuild"  parameterType="com.ahzl.model.Build">
+        <![CDATA[
+
+		insert into DL_BUILDINGS values (#{id},#{buildingId},#{gateId},#{communityName},#{streetId},#{streetName},#{gridCode},#{type},#{address},#{x},#{y},#{createUserId},#{createTime},#{updateUserId},#{updateTime},#{gateNo},#{gateNoSuffix},#{gateNoPreffix},#{gateSubNo},#{gateSubNoSuffix},#{gatePhoto},#{unitCount},#{floorCountUp},#{doorCountPerFloorDefault},#{isMultiple},#{checkStage},#{checkCount},#{buildingPhoto})
+
+        ]]>
+    </insert>
+    <select id="selectAllBuildId"  resultType="String">
+        <![CDATA[
+                select buildingId from DL_BUILDINGS
+
+        ]]>
+    </select>
+
+    <select id="selectAllBuildIdForUpdate"  resultType="String">
+        <![CDATA[
+                select buildingId from DL_BUILDINGS where streetId is null
+
+        ]]>
+    </select>
+
+    <update id="updateBuild" parameterType="com.ahzl.model.Build">
+        <![CDATA[
+            update DL_BUILDINGS
+                set buildingId = #{buildingId},
+                gateId = #{gateId},
+                communityName = #{communityName},
+                streetId = #{streetId},
+                streetName = #{streetName},
+                gridCode = #{gridCode},
+                type = #{type},
+                address = #{address},
+                x = #{x},
+                y = #{y},
+                createUserId = #{createUserId},
+                createTime = #{createTime},
+                updateUserId = #{updateUserId},
+                updateTime = #{updateTime},
+                gateNo = #{gateNo},
+                gateNoSuffix = #{gateNoSuffix},
+                gateNoPreffix = #{gateNoPreffix},
+                gateSubNo = #{gateSubNo},
+                gateSubNoSuffix = #{gateSubNoSuffix},
+                gatePhoto = #{gatePhoto},
+                unitCount = #{unitCount},
+                floorCountUp = #{floorCountUp},
+                doorCountPerFloorDefault = #{doorCountPerFloorDefault},
+                isMultiple = #{isMultiple},
+                checkStage = #{checkStage},
+                checkCount = #{checkCount},
+                buildingPhoto = #{buildingPhoto}
+            where id = #{id}
+        ]]>
+
+    </update>
+    <update id="updateBuildById" parameterType="com.ahzl.model.Build">
+        <![CDATA[
+            update DL_BUILDINGS
+                set buildingId = #{buildingId},
+                gateId = #{gateId},
+                communityName = #{communityName},
+                streetId = #{streetId},
+                streetName = #{streetName},
+                gridCode = #{gridCode},
+                type = #{type},
+                address = #{address},
+                x = #{x},
+                y = #{y},
+                createUserId = #{createUserId},
+                createTime = #{createTime},
+                updateUserId = #{updateUserId},
+                updateTime = #{updateTime},
+                gateNo = #{gateNo},
+                gateNoSuffix = #{gateNoSuffix},
+                gateNoPreffix = #{gateNoPreffix},
+                gateSubNo = #{gateSubNo},
+                gateSubNoSuffix = #{gateSubNoSuffix},
+                gatePhoto = #{gatePhoto},
+                unitCount = #{unitCount},
+                floorCountUp = #{floorCountUp},
+                doorCountPerFloorDefault = #{doorCountPerFloorDefault},
+                isMultiple = #{isMultiple},
+                checkStage = #{checkStage},
+                checkCount = #{checkCount},
+                buildingPhoto = #{buildingPhoto}
+            where id = #{id}
+        ]]>
+    </update>
+
+</mapper>
