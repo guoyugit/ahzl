@@ -15,5 +15,7 @@ public interface QueryParamDao {
 
     public List<QueryInstruction> queryInstructionsByPage(Map<String,Object> page);
 
+    public QueryInstruction queryInstructionsById(String id);
+
     public List<QueryInstructionResult> findQueryParamResults(Integer pageNum, Integer pageSize);
 }

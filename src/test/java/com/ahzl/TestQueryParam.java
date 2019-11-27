@@ -1,5 +1,6 @@
 package com.ahzl;
 
+import com.ahzl.enums.SendStateEnum;
 import com.ahzl.model.QueryInstruction;
 import com.ahzl.service.QueryParamService;
 import com.ahzl.utils.CommonUtils;
@@ -26,13 +27,13 @@ public class TestQueryParam {
 
     @Test
     public void testInsert() {
-        for (int i = 1; i <= 10 ; i++) {
+        for (int i = 1; i <= 10; i++) {
             QueryInstruction queryInstruction = new QueryInstruction();
-            queryInstruction.setId(i+"");
+            queryInstruction.setId(i + "");
             queryInstruction.setDataType(1);
             queryInstruction.setInstruction("www.baidu.com");
             queryInstruction.setInstructionType(2);
-            queryInstruction.setSendStatus(0);
+            queryInstruction.setSendStatus(SendStateEnum.NOT_SEND.getCode());
             queryInstruction.setDelFlag("1");
             queryInstruction.setStartTime(LocalDateTime.now());
             queryInstruction.setEndTime(LocalDateTime.now().plusWeeks(1));
@@ -41,15 +42,23 @@ public class TestQueryParam {
             queryParamService.insertQueryParam(queryInstruction);
         }
     }
+
     @Test
     public void testPageList() {
-        Map<String,Object> map = new HashMap<>();
-        map.put("currIndex",3);
-        map.put("pageSize",2);
+        Map<String, Object> map = new HashMap<>();
+        map.put("currIndex", 3);
+        map.put("pageSize", 2);
         List<QueryInstruction> lists = queryParamService.queryInstructionsByPage(map);
         lists.forEach(queryInstruction -> {
             System.out.println(queryInstruction);
             System.out.println(CommonUtils.locateToStr(queryInstruction.getCreateTime()));
         });
+    }
+
+    @Test
+    public void testListById() {
+        QueryInstruction ins = queryParamService.queryInstructionsById("2019112710177625233642800");
+        System.out.println(ins);
+        System.out.println(CommonUtils.locateToStr(ins.getCreateTime()));
     }
 }

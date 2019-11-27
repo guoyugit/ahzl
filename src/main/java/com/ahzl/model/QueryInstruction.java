@@ -37,7 +37,8 @@ public class QueryInstruction {
     private Integer instructionType;
 
     //发送状态：0:未发送 1：发送成功 2：发送失败  3：已返回结果
-    private Integer sendStatus;
+    @Length(max = 1,message = "发送状态sendStatus字段最大长度1")
+    private String sendStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

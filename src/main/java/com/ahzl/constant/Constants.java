@@ -17,4 +17,8 @@ public class Constants {
     public static final String INSTRUCTION_TYPE = "instructionType";
     public static final String START_TIME = "startTime";
     public static final String END_TIME = "endTime";
+    //分页参数
+    public static final String PAGE_NUM = "pageNum";
+    public static final String PAGE_SIZE = "pageSize";
+    public static final String CURR_INDEX = "currIndex";
 }

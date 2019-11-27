@@ -2,15 +2,17 @@ package com.ahzl.controller;
 
 import com.ahzl.constant.Constants;
 import com.ahzl.enums.ResultCodeEnum;
+import com.ahzl.model.QueryInstruction;
 import com.ahzl.model.ResultEntity;
 import com.ahzl.service.QueryParamService;
 import com.ahzl.utils.CommonUtils;
 import com.ahzl.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +26,7 @@ import java.util.Map;
  * @version 1.0
  */
 @RestController
+@RequestMapping("/queryIns")
 public class QueryParamController {
 
     @Autowired
@@ -32,10 +35,29 @@ public class QueryParamController {
     @PostMapping("/insertInstruction")
     public ResultEntity insertQueryParam(@RequestBody Map<String, Object> params) {
         if (params.containsKey(Constants.DATA_TYPE) && params.containsKey(Constants.INSTRUCTION) && params.containsKey(Constants.INSTRUCTION_TYPE) && params.containsKey(Constants.START_TIME) && params.containsKey(Constants.END_TIME)) {
-            queryParamService.insertQueryInstruction(CommonUtils.convertMap2MultiValueMap(params));
+            queryParamService.insertQueryInstruction(CommonUtils.convertMap2MultiValueMap(params), 12);
             return ResultUtils.success();
         }
-        System.out.println("11");
+        return ResultUtils.fail(ResultCodeEnum.PARAMETER_ERROR);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResultEntity queryInsById(@NotEmpty(message = "id不能为空")
+                                     @PathVariable(name = "id") String id) {
+
+        QueryInstruction queryInstruction = queryParamService.queryInstructionsById(id);
+        if (null != queryInstruction) {
+            return ResultUtils.success(queryInstruction);
+        }
+        return ResultUtils.fail(ResultCodeEnum.PARAMETER_ERROR);
+    }
+
+    @PostMapping("/queryInsByPage")
+    public ResultEntity queryInsByPage(@RequestBody Map<String, Object> params) {
+        if (params.containsKey(Constants.PAGE_NUM) && params.containsKey(Constants.PAGE_SIZE)) {
+            List<QueryInstruction> queryInstructions = queryParamService.queryInstructionsByPage(params);
+            return ResultUtils.success(queryInstructions);
+        }
         return ResultUtils.fail(ResultCodeEnum.PARAMETER_ERROR);
     }
 }

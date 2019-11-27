@@ -14,6 +14,10 @@
         select *  from QUERY_INSTRUCTION limit #{currIndex} , #{pageSize}
     </select>
 
+    <select id="queryInstructionsById" parameterType="string" resultMap="BaseResultMap">
+        select *  from QUERY_INSTRUCTION where id = #{id}
+    </select>
+
     <resultMap id="BaseResultMap" type="com.ahzl.model.QueryInstruction">
         <!-- 用id属性来映射主键字段 -->
         <id column="id" jdbcType="VARCHAR" property="id" />
@@ -21,7 +25,7 @@
         <result column="data_type" jdbcType="INTEGER" property="dataType" />
         <result column="instruction" jdbcType="VARCHAR" property="instruction" />
         <result column="instruction_type" jdbcType="INTEGER" property="instructionType" />
-        <result column="send_status" jdbcType="INTEGER" property="sendStatus" />
+        <result column="send_status" jdbcType="CHAR" property="sendStatus" />
         <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
         <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
         <result column="del_flag" jdbcType="CHAR" property="delFlag" />
