@@ -10,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -52,6 +53,7 @@ public class QueryInstruction {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime endTime;
 
+    @NotNull(message = "删除标识delFlag字段不能为空")
     @Length(max = 1,message = "删除标识delFlag字段最大长度1")
     private String delFlag;
 

@@ -4,12 +4,15 @@ import com.ahzl.constant.Constants;
 import com.ahzl.enums.ResultCodeEnum;
 import com.ahzl.model.QueryInstruction;
 import com.ahzl.model.ResultEntity;
+import com.ahzl.model.UserDto;
 import com.ahzl.service.QueryParamService;
 import com.ahzl.utils.CommonUtils;
 import com.ahzl.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +42,16 @@ public class QueryParamController {
             return ResultUtils.success();
         }
         return ResultUtils.fail(ResultCodeEnum.PARAMETER_ERROR);
+    }
+
+    @PostMapping("/testValidPost")
+    public ResultEntity testValid(@RequestBody @Valid UserDto userDto) {
+        return ResultUtils.fail(ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping("/testValidGet")
+    public Object testValidGet(@Valid UserDto userDto){
+        return userDto;
     }
 
     @GetMapping(path = "/{id}")
