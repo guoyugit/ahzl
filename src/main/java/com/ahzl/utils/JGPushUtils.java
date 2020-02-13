@@ -64,7 +64,7 @@ public class JGPushUtils {
         //指定别名发送消息
         String[] alias = new String[]{"siju"};
 //        String[] alias = new String[]{"wangpeng","other"};
-        pushToUserForAlias(generateMsg(alias, ALERT),alias);
+        pushToUserForAlias(generateMsg(alias, ALERT), alias);
 
     }
 
@@ -83,13 +83,17 @@ public class JGPushUtils {
         return new JPushClient(MASTER_SECRET, APP_KEY, null, config);
     }
 
-
-    //以别名方式推送
-    private static void pushToUserForAlias(String msg,String... alias) {
+    /**
+     * 以别名方式推送
+     *
+     * @param msg   推送的消息
+     * @param alias 推送的别名集合
+     */
+    private static void pushToUserForAlias(String msg, String... alias) {
         JPushClient jpushClient = getPushClient();
 
         // For push, all you need do is to build PushPayload object.
-        PushPayload payload = buildPushObject_all_alias_alert(msg,alias);
+        PushPayload payload = buildPushObject_all_alias_alert(msg, alias);
 
         try {
             PushResult result = jpushClient.sendPush(payload);
@@ -107,7 +111,11 @@ public class JGPushUtils {
         }
     }
 
-    //广播推送
+    /**
+     * 广播推送消息
+     *
+     * @param msg 推送的消息
+     */
     private static void pushToAll(String msg) {
         JPushClient jpushClient = getPushClient();
 
@@ -136,7 +144,12 @@ public class JGPushUtils {
         return PushPayload.alertAll(ALERT);
     }
 
-    //构建推送对象：所有平台，所有人，通知内容为 msg。
+    /**
+     * 构建推送对象：所有平台，所有人，通知内容为 msg。
+     *
+     * @param msg 通知内容
+     * @return PushPayload对象
+     */
     public static PushPayload buildPushObject_all_alert(String msg) {
         return PushPayload.newBuilder()
                 .setPlatform(Platform.all())
@@ -145,8 +158,14 @@ public class JGPushUtils {
                 .build();
     }
 
-    //构建推送对象：所有平台，推送目标是别名为 "alias"，通知内容为 msg。
-    public static PushPayload buildPushObject_all_alias_alert(String msg,String... alias) {
+    /**
+     * 构建推送对象：所有平台，推送目标是别名为 "alias"，通知内容为 msg。
+     *
+     * @param msg   推送的消息
+     * @param alias 推送别名
+     * @return
+     */
+    public static PushPayload buildPushObject_all_alias_alert(String msg, String... alias) {
         return PushPayload.newBuilder()
                 .setPlatform(Platform.all())
                 .setAudience(Audience.alias(Arrays.asList(alias)))
