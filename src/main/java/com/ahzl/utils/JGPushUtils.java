@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -61,14 +62,14 @@ public class JGPushUtils {
         //广播发送消息
 //        pushToAll(generateMsg(null, ALERT));
         //指定别名发送消息
-        String alias = "wangpeng";
-        pushToUserForAlias(alias, generateMsg(alias, ALERT));
+        String[] alias = new String[]{"wangpeng","other"};
+        pushToUserForAlias(generateMsg(alias, ALERT),alias);
 
     }
 
-    private static String generateMsg(String alias, String msg) {
-        if (StringUtils.hasText(alias)) {
-            return "To " + alias + " ：" + msg + DATE_FORMAT.format(new Date());
+    private static String generateMsg(String[] alias, String msg) {
+        if (null != alias && alias.length > 0) {
+            return "To " + Arrays.toString(alias) + " ：" + msg + DATE_FORMAT.format(new Date());
         }
         return "To All ：" + msg + DATE_FORMAT.format(new Date());
     }
@@ -82,11 +83,11 @@ public class JGPushUtils {
     }
 
 
-    private static void pushToUserForAlias(String alias, String msg) {
+    private static void pushToUserForAlias(String msg,String... alias) {
         JPushClient jpushClient = getPushClient();
 
         // For push, all you need do is to build PushPayload object.
-        PushPayload payload = buildPushObject_all_alias_alert(alias, msg);
+        PushPayload payload = buildPushObject_all_alias_alert(msg,alias);
 
         try {
             PushResult result = jpushClient.sendPush(payload);
@@ -142,10 +143,10 @@ public class JGPushUtils {
     }
 
     //构建推送对象：所有平台，推送目标是别名为 "alias"，通知内容为 msg。
-    public static PushPayload buildPushObject_all_alias_alert(String alias, String msg) {
+    public static PushPayload buildPushObject_all_alias_alert(String msg,String... alias) {
         return PushPayload.newBuilder()
                 .setPlatform(Platform.all())
-                .setAudience(Audience.alias(alias))
+                .setAudience(Audience.alias(Arrays.asList(alias)))
                 .setNotification(Notification.alert(msg))
                 .build();
     }
