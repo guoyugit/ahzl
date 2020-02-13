@@ -39,11 +39,11 @@ public class JGPushUtils {
     protected static final Logger LOG = LoggerFactory.getLogger(JGPushUtils.class);
 
     //益农e审调用成功
-    protected static final String APP_KEY = "057f04d899e4f4156719f7b4";
-    protected static final String MASTER_SECRET = "aa5ea2831781b15abc5fd6f2";
+//    protected static final String APP_KEY = "057f04d899e4f4156719f7b4";
+//    protected static final String MASTER_SECRET = "aa5ea2831781b15abc5fd6f2";
     //益农E审(开发对接应用)
-//    protected static final String APP_KEY = "7850a02a6984cfef9ae12261";
-//    protected static final String MASTER_SECRET = "0b82c0ca251ed033ad9c8438";
+    protected static final String APP_KEY = "7850a02a6984cfef9ae12261";
+    protected static final String MASTER_SECRET = "0b82c0ca251ed033ad9c8438";
 
     protected static final String GROUP_PUSH_KEY = "2c88a01e073a0fe4fc7b167c";
     protected static final String GROUP_MASTER_SECRET = "b11314807507e2bcfdeebe2e";
@@ -62,7 +62,8 @@ public class JGPushUtils {
         //广播发送消息
 //        pushToAll(generateMsg(null, ALERT));
         //指定别名发送消息
-        String[] alias = new String[]{"wangpeng","other"};
+        String[] alias = new String[]{"siju"};
+//        String[] alias = new String[]{"wangpeng","other"};
         pushToUserForAlias(generateMsg(alias, ALERT),alias);
 
     }
@@ -83,6 +84,7 @@ public class JGPushUtils {
     }
 
 
+    //以别名方式推送
     private static void pushToUserForAlias(String msg,String... alias) {
         JPushClient jpushClient = getPushClient();
 
@@ -105,6 +107,7 @@ public class JGPushUtils {
         }
     }
 
+    //广播推送
     private static void pushToAll(String msg) {
         JPushClient jpushClient = getPushClient();
 
